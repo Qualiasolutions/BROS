@@ -8,7 +8,8 @@ import {
   PieChart, 
   UserCircle, 
   Settings,
-  Bot
+  Bot,
+  X
 } from 'lucide-react';
 
 const Sidebar = ({ activeTab, onTabChange, mobileMenuOpen }) => {
@@ -27,8 +28,11 @@ const Sidebar = ({ activeTab, onTabChange, mobileMenuOpen }) => {
   return (
     <aside className={`${styles.sidebar} ${mobileMenuOpen ? styles.sidebarMobileOpen : ''}`}>
       <div className={styles.sidebarHeader}>
-        <h3>BROS Mayfair</h3>
+        <h3>ROMAIN, TOMAS & FAWZI</h3>
         <p>Restaurant Management</p>
+        <button className={styles.closeMobileMenu} onClick={() => onTabChange(activeTab)}>
+          <X size={20} />
+        </button>
       </div>
       
       <nav className={styles.sidebarNav}>
@@ -46,7 +50,7 @@ const Sidebar = ({ activeTab, onTabChange, mobileMenuOpen }) => {
       
       <div className={styles.sidebarFooter}>
         <div className={styles.restaurantInfo}>
-          <p><strong>BROS Mayfair</strong></p>
+          <p><strong>ROMAIN, TOMAS & FAWZI</strong></p>
           <p>42 Berkeley Square</p>
           <p>London, W1J 5AW</p>
         </div>

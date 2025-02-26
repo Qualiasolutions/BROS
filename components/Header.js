@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import styles from '../styles/Home.module.css';
 import { Menu, X, Bell, User, Search } from 'lucide-react';
 
@@ -11,6 +11,9 @@ const Header = ({ toggleMobileMenu, mobileMenuOpen, activeTab, onTabChange }) =>
   ]);
   const [showNotifications, setShowNotifications] = useState(false);
   const [showUserMenu, setShowUserMenu] = useState(false);
+  
+  const notificationRef = useRef(null);
+  const userMenuRef = useRef(null);
 
   const handleSearch = (e) => {
     e.preventDefault();
@@ -32,13 +35,30 @@ const Header = ({ toggleMobileMenu, mobileMenuOpen, activeTab, onTabChange }) =>
     setNotifications(notifications.map(notification => ({ ...notification, read: true })));
   };
 
+  // Handle click outside to close dropdowns
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (notificationRef.current && !notificationRef.current.contains(event.target)) {
+        setShowNotifications(false);
+      }
+      if (userMenuRef.current && !userMenuRef.current.contains(event.target)) {
+        setShowUserMenu(false);
+      }
+    };
+
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, []);
+
   const unreadCount = notifications.filter(notification => !notification.read).length;
 
   return (
     <header className={styles.header}>
       <div className={`container ${styles.headerContent}`}>
         <div className={styles.logo}>
-          BROS <span>Mayfair</span>
+          ROMAIN, TOMAS & FAWZI <span>Mayfair</span>
         </div>
 
         <div className={styles.searchContainer}>
@@ -57,22 +77,63 @@ const Header = ({ toggleMobileMenu, mobileMenuOpen, activeTab, onTabChange }) =>
         </div>
 
         <nav className={styles.nav}>
-          <div className={styles.navItem} onClick={() => onTabChange('dashboard')}>
+          <div 
+            className={`${styles.navItem} ${activeTab === 'dashboard' ? styles.navItemActive : ''}`} 
+            onClick={() => onTabChange('dashboard')}
+          >
             Dashboard
           </div>
-          <div className={styles.navItem} onClick={() => onTabChange('reservations')}>
+          <div 
+            className={`${styles.navItem} ${activeTab === 'reservations' ? styles.navItemActive : ''}`} 
+            onClick={() => onTabChange('reservations')}
+          >
             Reservations
           </div>
-          <div className={styles.navItem} onClick={() => onTabChange('menu')}>
+          <div 
+            className={`${styles.navItem} ${activeTab === 'menu' ? styles.navItemActive : ''}`} 
+            onClick={() => onTabChange('menu')}
+          >
             Menu
           </div>
-          <div className={styles.navItem} onClick={() => onTabChange('agent')}>
+          <div 
+            className={`${styles.navItem} ${activeTab === 'agent' ? styles.navItemActive : ''}`} 
+            onClick={() => onTabChange('agent')}
+          >
             AI Assistant
           </div>
         </nav>
 
+        {mobileMenuOpen && (
+          <nav className={styles.navMobile}>
+            <div 
+              className={`${styles.navItem} ${activeTab === 'dashboard' ? styles.navItemActive : ''}`} 
+              onClick={() => onTabChange('dashboard')}
+            >
+              Dashboard
+            </div>
+            <div 
+              className={`${styles.navItem} ${activeTab === 'reservations' ? styles.navItemActive : ''}`} 
+              onClick={() => onTabChange('reservations')}
+            >
+              Reservations
+            </div>
+            <div 
+              className={`${styles.navItem} ${activeTab === 'menu' ? styles.navItemActive : ''}`} 
+              onClick={() => onTabChange('menu')}
+            >
+              Menu
+            </div>
+            <div 
+              className={`${styles.navItem} ${activeTab === 'agent' ? styles.navItemActive : ''}`} 
+              onClick={() => onTabChange('agent')}
+            >
+              AI Assistant
+            </div>
+          </nav>
+        )}
+
         <div className={styles.headerActions}>
-          <div className={styles.notificationContainer}>
+          <div className={styles.notificationContainer} ref={notificationRef}>
             <button className={styles.iconButton} onClick={toggleNotifications}>
               <Bell size={20} />
               {unreadCount > 0 && <span className={styles.notificationBadge}>{unreadCount}</span>}
@@ -104,7 +165,7 @@ const Header = ({ toggleMobileMenu, mobileMenuOpen, activeTab, onTabChange }) =>
             )}
           </div>
 
-          <div className={styles.userContainer}>
+          <div className={styles.userContainer} ref={userMenuRef}>
             <button className={styles.iconButton} onClick={toggleUserMenu}>
               <User size={20} />
             </button>
@@ -113,7 +174,7 @@ const Header = ({ toggleMobileMenu, mobileMenuOpen, activeTab, onTabChange }) =>
               <div className={styles.userDropdown}>
                 <div className={styles.userInfo}>
                   <div className={styles.userName}>Restaurant Manager</div>
-                  <div className={styles.userEmail}>manager@bros-mayfair.com</div>
+                  <div className={styles.userEmail}>manager@romain-tomas-fawzi.com</div>
                 </div>
                 <div className={styles.userMenuItems}>
                   <div className={styles.userMenuItem} onClick={() => onTabChange('settings')}>

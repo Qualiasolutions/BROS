@@ -86,7 +86,7 @@ const Agent = ({ onTabChange }) => {
           initialMessage += 'I can assist with placing takeaway orders, checking order status, or arranging delivery.';
           break;
         case 'events':
-          initialMessage += 'I can provide information about hosting private events, group bookings, or special occasions at BROS Mayfair.';
+          initialMessage += 'I can provide information about hosting private events, group bookings, or special occasions at ROMAIN, TOMAS & FAWZI Mayfair.';
           break;
         case 'loyalty':
           initialMessage += 'I can help with our loyalty program, special offers, and membership benefits.';
@@ -101,7 +101,7 @@ const Agent = ({ onTabChange }) => {
           initialMessage += 'I can tell you about our opening hours, location details, parking information, and accessibility.';
           break;
         default:
-          initialMessage += 'What would you like to know about BROS Mayfair restaurant?';
+          initialMessage += 'What would you like to know about ROMAIN, TOMAS & FAWZI restaurant?';
       }
       
       setConversation([
@@ -512,7 +512,7 @@ const Agent = ({ onTabChange }) => {
       if (lowerMessage.includes('who are you') || lowerMessage.includes('what are you')) {
         setConversation(prev => [...prev, { 
           role: 'assistant', 
-          content: `I'm the BROS Mayfair assistant, designed to help you manage your restaurant data, including menu items, reservations, clients, suppliers, and invoices. I can answer questions about your business and help you navigate through different sections of the application.`
+          content: `I'm the ROMAIN, TOMAS & FAWZI assistant, designed to help you manage your restaurant data, including menu items, reservations, clients, suppliers, and invoices. I can answer questions about your business and help you navigate through different sections of the application.`
         }]);
         return;
       }
@@ -640,10 +640,10 @@ You can ask questions like "Show me information about Harrods" or "Generate an i
       <div className={styles.welcomeScreen}>
         <h2>Who am I speaking to?</h2>
         <div className={styles.identityOptions}>
-          <button onClick={() => handleIdentitySelection('James')} className={styles.identityButton}>James</button>
-          <button onClick={() => handleIdentitySelection('Olivia')} className={styles.identityButton}>Olivia</button>
-          <button onClick={() => handleIdentitySelection('William')} className={styles.identityButton}>William</button>
-          <button onClick={() => handleIdentitySelection('Other BROS Mayfair team member')} className={styles.identityButton}>Other team member</button>
+          <button onClick={() => handleIdentitySelection('Romain')} className={styles.identityButton}>Romain</button>
+          <button onClick={() => handleIdentitySelection('Tomas')} className={styles.identityButton}>Tomas</button>
+          <button onClick={() => handleIdentitySelection('Fawzi')} className={styles.identityButton}>Fawzi</button>
+          <button onClick={() => handleIdentitySelection('Other team member')} className={styles.identityButton}>Other team member</button>
         </div>
       </div>
     );
@@ -700,7 +700,7 @@ You can ask questions like "Show me information about Harrods" or "Generate an i
               type="text"
               value={input}
               onChange={(e) => setInput(e.target.value)}
-              placeholder="Ask me anything about BROS Mayfair restaurant..."
+              placeholder="Ask me anything about ROMAIN, TOMAS & FAWZI restaurant..."
               className={styles.chatInput}
               disabled={isProcessing}
             />

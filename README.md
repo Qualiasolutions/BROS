@@ -1,6 +1,6 @@
-# BROS Mayfair Restaurant Management System
+# ROMAIN, TOMAS & FAWZI Restaurant Management System
 
-A comprehensive restaurant management system for BROS Mayfair, a high-end restaurant in London. This system includes reservation management, menu management, inventory tracking, staff scheduling, financial reporting, and an AI assistant to help restaurant owners navigate the system.
+A comprehensive restaurant management system for ROMAIN, TOMAS & FAWZI Mayfair, featuring reservation management, menu control, inventory tracking, and an AI assistant.
 
 ## Features
 
