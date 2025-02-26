@@ -58,7 +58,7 @@ const Header = ({ toggleMobileMenu, mobileMenuOpen, activeTab, onTabChange }) =>
     <header className={styles.header}>
       <div className={`container ${styles.headerContent}`}>
         <div className={styles.logo}>
-          ROMAIN, TOMAS & FAWZI <span>Mayfair</span>
+          BROS <span>Mayfair</span>
         </div>
 
         <div className={styles.searchContainer}>
