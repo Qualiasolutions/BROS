@@ -28,7 +28,7 @@ const Sidebar = ({ activeTab, onTabChange, mobileMenuOpen }) => {
   return (
     <aside className={`${styles.sidebar} ${mobileMenuOpen ? styles.sidebarMobileOpen : ''}`}>
       <div className={styles.sidebarHeader}>
-        <h3>ROMAIN, TOMAS & FAWZI</h3>
+        <h3>BROS Mayfair</h3>
         <p>Restaurant Management</p>
         <button className={styles.closeMobileMenu} onClick={() => onTabChange(activeTab)}>
           <X size={20} />
@@ -50,7 +50,7 @@ const Sidebar = ({ activeTab, onTabChange, mobileMenuOpen }) => {
       
       <div className={styles.sidebarFooter}>
         <div className={styles.restaurantInfo}>
-          <p><strong>ROMAIN, TOMAS & FAWZI</strong></p>
+          <p><strong>BROS Mayfair</strong></p>
           <p>42 Berkeley Square</p>
           <p>London, W1J 5AW</p>
         </div>

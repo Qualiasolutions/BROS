@@ -67,7 +67,8 @@ const Agent = ({ onTabChange }) => {
     { id: 'loyalty', name: 'Loyalty Program and Offers', icon: '🎁' },
     { id: 'feedback', name: 'Customer Feedback and Reviews', icon: '⭐' },
     { id: 'allergens', name: 'Allergen Information', icon: '🌱' },
-    { id: 'hours', name: 'Opening Hours and Location', icon: '🕒' }
+    { id: 'hours', name: 'Opening Hours and Location', icon: '🕒' },
+    { id: 'general', name: 'General Questions', icon: '❓' }
   ];
 
   // Initialize conversation after service selection
@@ -86,7 +87,7 @@ const Agent = ({ onTabChange }) => {
           initialMessage += 'I can assist with placing takeaway orders, checking order status, or arranging delivery.';
           break;
         case 'events':
-          initialMessage += 'I can provide information about hosting private events, group bookings, or special occasions at ROMAIN, TOMAS & FAWZI Mayfair.';
+          initialMessage += 'I can provide information about hosting private events, group bookings, or special occasions at BROS Mayfair.';
           break;
         case 'loyalty':
           initialMessage += 'I can help with our loyalty program, special offers, and membership benefits.';
@@ -100,8 +101,11 @@ const Agent = ({ onTabChange }) => {
         case 'hours':
           initialMessage += 'I can tell you about our opening hours, location details, parking information, and accessibility.';
           break;
+        case 'general':
+          initialMessage += 'I can answer any general questions you might have about BROS Mayfair or our services.';
+          break;
         default:
-          initialMessage += 'What would you like to know about ROMAIN, TOMAS & FAWZI restaurant?';
+          initialMessage += 'What would you like to know about BROS Mayfair restaurant?';
       }
       
       setConversation([
@@ -466,159 +470,74 @@ const Agent = ({ onTabChange }) => {
 
   // Process with AI for all queries
   const processWithAI = async (message) => {
-    try {
-      console.log("Processing message with AI:", message);
-      console.log("Current context:", conversationContext);
-      
-      // First, try to handle common questions directly without API call
-      const lowerMessage = message.toLowerCase();
-      
-      // Business questions
-      if (lowerMessage.includes('how many clients') || lowerMessage.includes('client count')) {
-        setConversation(prev => [...prev, { 
-          role: 'assistant', 
-          content: `We currently have ${conversationContext.knownClients.length} active clients in our system. You can view them all in the Clients tab.`
-        }]);
-        return;
+    // Simple keyword-based response system
+    const lowerMessage = message.toLowerCase();
+    let response = '';
+    
+    // Check for general questions first
+    if (selectedService === 'general' || true) { // Always allow general questions regardless of service
+      if (lowerMessage.includes('hello') || lowerMessage.includes('hi') || lowerMessage.includes('hey')) {
+        response = `Hello! How can I assist you with BROS Mayfair today?`;
+      } else if (lowerMessage.includes('who are you') || lowerMessage.includes('what can you do')) {
+        response = `I'm the BROS Mayfair AI assistant. I can help with reservations, menu information, orders, events, and answer general questions about our restaurant.`;
+      } else if (lowerMessage.includes('location') || lowerMessage.includes('address') || lowerMessage.includes('where')) {
+        response = `BROS Mayfair is located at 42 Berkeley Square, Mayfair, London W1J 5AW. We're in the heart of Mayfair, just a short walk from Green Park station.`;
+      } else if (lowerMessage.includes('opening') || lowerMessage.includes('hours') || lowerMessage.includes('time')) {
+        response = `Our opening hours are:\nLunch: Monday to Friday, 12pm - 2:30pm\nDinner: Monday to Saturday, 6pm - 10:30pm\nWe are closed on Sundays.`;
+      } else if (lowerMessage.includes('menu') || lowerMessage.includes('food') || lowerMessage.includes('dish')) {
+        response = `Our menu features modern British cuisine with European influences. Some of our signature dishes include Beef Wellington, Truffle Risotto, Dover Sole, and Lobster Linguine. Would you like to know more about any specific dish?`;
+      } else if (lowerMessage.includes('reservation') || lowerMessage.includes('book') || lowerMessage.includes('table')) {
+        response = `To make a reservation, you can provide your preferred date, time, and party size. We recommend booking at least 2 weeks in advance for dinner service.`;
+      } else if (lowerMessage.includes('chef') || lowerMessage.includes('kitchen')) {
+        response = `Our Executive Chef leads our talented kitchen team, creating seasonal menus that showcase the finest British ingredients with innovative cooking techniques.`;
+      } else if (lowerMessage.includes('price') || lowerMessage.includes('cost') || lowerMessage.includes('expensive')) {
+        response = `Our lunch menu starts from £45 for two courses, and our dinner tasting menu is £95 per person. We also offer an à la carte menu with starters from £18 and main courses from £32.`;
+      } else if (lowerMessage.includes('dress code') || lowerMessage.includes('attire')) {
+        response = `We have a smart casual dress code. Gentlemen are required to wear a collared shirt, and we do not permit sportswear or sneakers in the dining room.`;
+      } else if (lowerMessage.includes('parking') || lowerMessage.includes('car')) {
+        response = `Valet parking is available for £25. Alternatively, there are several public car parks within walking distance, including the Q-Park at Berkeley Square.`;
+      } else if (lowerMessage.includes('thank')) {
+        response = `You're welcome! Is there anything else I can help you with?`;
+      } else if (lowerMessage.includes('bye') || lowerMessage.includes('goodbye')) {
+        response = `Thank you for chatting with BROS Mayfair's AI assistant. We look forward to welcoming you soon!`;
       }
-      
-      if (lowerMessage.includes('how many suppliers') || lowerMessage.includes('supplier count')) {
-        setConversation(prev => [...prev, { 
-          role: 'assistant', 
-          content: `We currently have ${conversationContext.knownSuppliers.length} active suppliers in our system. You can view them all in the Suppliers tab.`
-        }]);
-        return;
-      }
-      
-      // General knowledge questions
-      if (lowerMessage.includes('what time') || lowerMessage.includes('current time')) {
-        const now = new Date();
-        setConversation(prev => [...prev, { 
-          role: 'assistant', 
-          content: `The current time is ${now.toLocaleTimeString()}.`
-        }]);
-        return;
-      }
-      
-      if (lowerMessage.includes('what day') || lowerMessage.includes('what date') || lowerMessage.includes('today')) {
-        const now = new Date();
-        setConversation(prev => [...prev, { 
-          role: 'assistant', 
-          content: `Today is ${now.toLocaleDateString('en-GB', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })}.`
-        }]);
-        return;
-      }
-      
-      if (lowerMessage.includes('who are you') || lowerMessage.includes('what are you')) {
-        setConversation(prev => [...prev, { 
-          role: 'assistant', 
-          content: `I'm the ROMAIN, TOMAS & FAWZI assistant, designed to help you manage your restaurant data, including menu items, reservations, clients, suppliers, and invoices. I can answer questions about your business and help you navigate through different sections of the application.`
-        }]);
-        return;
-      }
-      
-      if (lowerMessage.includes('help') || lowerMessage.includes('what can you do')) {
-        setConversation(prev => [...prev, { 
-          role: 'assistant', 
-          content: `I can help you with:
-          
-1. **Menu Management**: Ask about specific dishes, update menu items, or browse all menu items.
-2. **Reservation Management**: Create, modify, or cancel reservations for guests.
-3. **Client Management**: Get information about clients and their history with the restaurant.
-4. **Supplier Details**: Check supplier information and order status.
-5. **Invoice Generation**: Create new invoices for clients with specific amounts.
-6. **Navigation**: Switch between different tabs like Menu, Reservations, Clients, Suppliers.
-7. **Business Insights**: Get summaries of your restaurant's performance.
-
-You can ask questions like "Show me information about Harrods" or "Generate an invoice for The Ritz for £500".`
-        }]);
-        return;
-      }
-      
-      // Prepare context for the AI
-      const contextHistory = conversation.slice(-5); // Last 5 messages for context
-      
-      // Call the AI-powered chat endpoint
-      const response = await fetch('/api/chat', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          message: message,
-          history: contextHistory,
-          context: conversationContext
-        }),
-      });
-      
-      if (!response.ok) {
-        const errorText = await response.text();
-        console.error(`Error from chat API: ${response.status}`, errorText);
-        throw new Error(`Error from chat API: ${response.status}`);
-      }
-      
-      const data = await response.json();
-      console.log("Chat API response:", data);
-      
-      // Add AI response to conversation
-      setConversation(prev => {
-        // If the last message was a "checking..." message, replace it
-        if (prev.length > 0 && 
-            prev[prev.length - 1].role === 'assistant' && 
-            prev[prev.length - 1].content.includes('Checking')) {
-          const newMessages = [...prev];
-          newMessages.pop(); // Remove the "checking..." message
-          return [...newMessages, { role: 'assistant', content: data.message }];
-        }
-        
-        // Otherwise just add the new message
-        return [...prev, { role: 'assistant', content: data.message }];
-      });
-      
-      // Update context with any entities the AI might have identified
-      if (data.entities) {
-        setConversationContext(prev => ({
-          ...prev,
-          mentionedEntities: [...prev.mentionedEntities, ...data.entities],
-          lastTopic: data.topic || prev.lastTopic
-        }));
-      }
-      
-    } catch (error) {
-      console.error('Error processing with AI:', error);
-      
-      // Provide a more helpful fallback response based on the user's query
-      const lowerMessage = message.toLowerCase();
-      let fallbackResponse = 'I understand you\'re asking about ';
-      
-      if (lowerMessage.includes('menu') || lowerMessage.includes('dish') || lowerMessage.includes('food')) {
-        fallbackResponse += `our menu. We have ${products.length} items on our menu including signature dishes like Beef Wellington, Truffle Risotto, and Dover Sole. You can ask about specific dishes or browse them in the Menu tab.`;
-      } else if (lowerMessage.includes('client') || lowerMessage.includes('customer')) {
-        fallbackResponse += 'clients. We have several active clients including Harrods, Selfridges, and others. You can ask about specific clients or browse them in the Clients tab.';
-      } else if (lowerMessage.includes('supplier') || lowerMessage.includes('vendor')) {
-        fallbackResponse += 'suppliers. We work with several suppliers including Smithfield Meats, Borough Market Produce, and others. You can ask about specific suppliers or browse them in the Suppliers tab.';
-      } else if (lowerMessage.includes('invoice')) {
-        fallbackResponse += 'invoices. I can help generate invoices. Please provide a client name and amount, for example: "Generate invoice for Harrods for £500"';
-      } else if (lowerMessage.includes('reservation') || lowerMessage.includes('booking')) {
-        fallbackResponse += 'reservations. I can help you create, modify, or cancel reservations. Please provide details like name, date, time, and number of guests.';
-      } else {
-        fallbackResponse = `I'm not sure I understand your question completely. I can help with information about our menu, reservations, clients, suppliers, and invoices. Could you please clarify what you'd like to know?`;
-      }
-      
-      setConversation(prev => {
-        // If the last message was a "checking..." message, replace it
-        if (prev.length > 0 && 
-            prev[prev.length - 1].role === 'assistant' && 
-            prev[prev.length - 1].content.includes('Checking')) {
-          const newMessages = [...prev];
-          newMessages.pop(); // Remove the "checking..." message
-          return [...newMessages, { role: 'assistant', content: fallbackResponse }];
-        }
-        
-        // Otherwise just add the new message
-        return [...prev, { role: 'assistant', content: fallbackResponse }];
-      });
     }
+    
+    // If no general response was generated, fall back to service-specific responses
+    if (!response) {
+      switch(selectedService) {
+        case 'menu':
+          // Menu-specific responses
+          if (lowerMessage.includes('special')) {
+            response = `Today's specials include a Cornish crab starter with apple and fennel, and a main course of aged Herefordshire beef ribeye with bone marrow sauce.`;
+          } else if (lowerMessage.includes('vegetarian') || lowerMessage.includes('vegan')) {
+            response = `We offer several vegetarian options including our Truffle Risotto and Wild Mushroom Wellington. For vegans, we have a dedicated plant-based menu available upon request.`;
+          } else if (lowerMessage.includes('wine')) {
+            response = `Our sommelier has curated an extensive wine list featuring over 300 references from around the world, with a focus on French and Italian regions.`;
+          } else {
+            response = `Our menu changes seasonally to showcase the best ingredients. Is there a specific dish or dietary requirement you'd like to know about?`;
+          }
+          break;
+          
+        case 'reservations':
+          // Reservation-specific responses
+          if (lowerMessage.includes('cancel') || lowerMessage.includes('change')) {
+            response = `To modify or cancel a reservation, please provide your booking reference number. Changes can be made up to 24 hours before your reservation without charge.`;
+          } else if (lowerMessage.includes('large') || lowerMessage.includes('group')) {
+            response = `For groups of 8 or more, we offer private dining options. Please let me know your preferred date and group size, and I can check availability.`;
+          } else {
+            response = `To make a reservation, please provide your preferred date, time, and number of guests. Our most popular times book up quickly, so we recommend reserving well in advance.`;
+          }
+          break;
+          
+        // Add more service-specific responses as needed
+        
+        default:
+          response = `I'm not sure I understand. Could you please rephrase your question about BROS Mayfair?`;
+      }
+    }
+    
+    return response;
   };
 
   // Handle user identity selection
@@ -638,12 +557,12 @@ You can ask questions like "Show me information about Harrods" or "Generate an i
   const renderWelcomeScreen = () => {
     return (
       <div className={styles.welcomeScreen}>
-        <h2>Who am I speaking to?</h2>
+        <h2>Welcome to BROS Mayfair</h2>
+        <p>Please tell us who you are:</p>
         <div className={styles.identityOptions}>
-          <button onClick={() => handleIdentitySelection('Romain')} className={styles.identityButton}>Romain</button>
-          <button onClick={() => handleIdentitySelection('Tomas')} className={styles.identityButton}>Tomas</button>
-          <button onClick={() => handleIdentitySelection('Fawzi')} className={styles.identityButton}>Fawzi</button>
-          <button onClick={() => handleIdentitySelection('Other team member')} className={styles.identityButton}>Other team member</button>
+          <button className={styles.identityButton} onClick={() => handleIdentitySelection('Guest')}>Guest</button>
+          <button className={styles.identityButton} onClick={() => handleIdentitySelection('Regular Customer')}>Regular Customer</button>
+          <button className={styles.identityButton} onClick={() => handleIdentitySelection('Staff Member')}>Staff Member</button>
         </div>
       </div>
     );
@@ -672,48 +591,75 @@ You can ask questions like "Show me information about Harrods" or "Generate an i
   };
 
   return (
-    <div className={styles.chatSection}>
-      {showWelcomeScreen ? (
-        renderWelcomeScreen()
-      ) : showServiceSelection ? (
-        renderServiceSelection()
-      ) : (
-        <>
-          <div className={styles.messagesContainer}>
-            {conversation.map((message, index) => (
-              <div 
-                key={index} 
-                className={`${styles.message} ${message.role === 'user' ? styles.userMessage : styles.assistantMessage}`}
-              >
-                {message.role === 'assistant' && <AssistantAvatar />}
-                <div className={styles.messageContent}>
-                  {message.content}
-                </div>
-              </div>
-            ))}
-            {isProcessing && <LoadingScreen />}
-            <div ref={messagesEndRef} />
-          </div>
-          
-          <form onSubmit={handleSubmit} className={styles.inputForm}>
-            <input
-              type="text"
-              value={input}
-              onChange={(e) => setInput(e.target.value)}
-              placeholder="Ask me anything about ROMAIN, TOMAS & FAWZI restaurant..."
-              className={styles.chatInput}
-              disabled={isProcessing}
-            />
+    <div className={styles.componentContainer}>
+      <div className={styles.chatSection}>
+        <div className={styles.chatHeader}>
+          <h2>BROS Mayfair AI Assistant</h2>
+          {!showWelcomeScreen && !showServiceSelection && (
             <button 
-              type="submit" 
-              className={styles.sendButton}
-              disabled={isProcessing || !input.trim()}
+              className={styles.resetButton} 
+              onClick={() => {
+                setShowWelcomeScreen(true);
+                setShowServiceSelection(false);
+                setConversation([]);
+                setSelectedService('');
+              }}
             >
-              Send
+              New Conversation
             </button>
-          </form>
-        </>
+          )}
+        </div>
+        
+        {showWelcomeScreen ? (
+          renderWelcomeScreen()
+        ) : showServiceSelection ? (
+          renderServiceSelection()
+        ) : (
+          <>
+            <div className={styles.messagesContainer}>
+              {conversation.map((msg, index) => (
+                <div 
+                  key={index} 
+                  className={`${styles.message} ${msg.role === 'user' ? styles.userMessage : styles.assistantMessage}`}
+                >
+                  {msg.role === 'assistant' && <AssistantAvatar />}
+                  <div className={styles.messageContent}>
+                    {msg.content}
+                  </div>
+                </div>
+              ))}
+              <div ref={messagesEndRef} />
+            </div>
+            
+            <form onSubmit={handleSubmit} className={styles.inputForm}>
+              <input
+                type="text"
+                value={input}
+                onChange={(e) => setInput(e.target.value)}
+                placeholder="Type your message..."
+                className={styles.chatInput}
+                disabled={isProcessing}
+              />
+              <button 
+                type="submit" 
+                className={styles.sendButton}
+                disabled={isProcessing || !input.trim()}
+              >
+                Send
+              </button>
+            </form>
+          </>
+        )}
+      </div>
+      
+      {isInvoiceMode && invoiceData && (
+        <InvoiceView 
+          invoiceData={invoiceData} 
+          onClose={() => setIsInvoiceMode(false)} 
+        />
       )}
+      
+      {isLoading && <LoadingScreen />}
     </div>
   );
 };

@@ -8,7 +8,8 @@ import {
   TrendingUp, 
   Clock, 
   ShoppingBag,
-  AlertTriangle
+  AlertTriangle,
+  ChevronRight
 } from 'lucide-react';
 
 const Dashboard = () => {
@@ -98,66 +99,79 @@ const Dashboard = () => {
         <div className={styles.dashboardCard}>
           <div className={styles.cardHeader}>
             <h2>Top Selling Items</h2>
-            <span className={styles.cardHeaderAction}>View All</span>
+            <span className={styles.cardHeaderAction}>
+              View All <ChevronRight size={16} />
+            </span>
           </div>
-          <div className={styles.cardContent}>
-            <table className={styles.dataTable}>
-              <thead>
-                <tr>
-                  <th>Item</th>
-                  <th>Quantity</th>
-                  <th>Revenue</th>
-                </tr>
-              </thead>
-              <tbody>
-                {stats.topSellingItems.map(item => (
-                  <tr key={item.id}>
-                    <td>{item.name}</td>
-                    <td>0</td>
-                    <td>£0.00</td>
+          <div className={`${styles.cardContent} ${styles.tableContainer}`}>
+            <div className={styles.tableWrapper}>
+              <table className={styles.dataTable}>
+                <thead>
+                  <tr>
+                    <th>Item</th>
+                    <th>Quantity</th>
+                    <th>Revenue</th>
                   </tr>
-                ))}
-              </tbody>
-            </table>
+                </thead>
+                <tbody>
+                  {stats.topSellingItems.map(item => (
+                    <tr key={item.id}>
+                      <td>{item.name}</td>
+                      <td>0</td>
+                      <td>£0.00</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
           </div>
         </div>
 
         <div className={styles.dashboardCard}>
           <div className={styles.cardHeader}>
             <h2>Upcoming Reservations</h2>
-            <span className={styles.cardHeaderAction}>View All</span>
+            <span className={styles.cardHeaderAction}>
+              View All <ChevronRight size={16} />
+            </span>
           </div>
-          <div className={styles.cardContent}>
-            <table className={styles.dataTable}>
-              <thead>
-                <tr>
-                  <th>Name</th>
-                  <th>Time</th>
-                  <th>Guests</th>
-                  <th>Table</th>
-                </tr>
-              </thead>
-              <tbody>
-                {stats.upcomingReservations.map(reservation => (
-                  <tr key={reservation.id}>
-                    <td>{reservation.name}</td>
-                    <td>{reservation.time}</td>
-                    <td>0</td>
-                    <td>{reservation.table}</td>
+          <div className={`${styles.cardContent} ${styles.tableContainer}`}>
+            <div className={styles.tableWrapper}>
+              <table className={styles.dataTable}>
+                <thead>
+                  <tr>
+                    <th>Name</th>
+                    <th>Time</th>
+                    <th>Guests</th>
+                    <th>Table</th>
                   </tr>
-                ))}
-              </tbody>
-            </table>
+                </thead>
+                <tbody>
+                  {stats.upcomingReservations.map(reservation => (
+                    <tr key={reservation.id}>
+                      <td>{reservation.name}</td>
+                      <td>{reservation.time}</td>
+                      <td>0</td>
+                      <td>{reservation.table}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
           </div>
         </div>
 
         <div className={styles.dashboardCard}>
           <div className={styles.cardHeader}>
             <h2>Inventory Alerts</h2>
-            <span className={styles.cardHeaderAction}>View All</span>
+            <span className={styles.cardHeaderAction}>
+              View All <ChevronRight size={16} />
+            </span>
           </div>
-          <div className={styles.cardContent}>
-            <div className={styles.emptyState}>No inventory alerts</div>
+          <div className={`${styles.cardContent} ${styles.emptyStateContainer}`}>
+            <div className={styles.emptyState}>
+              <AlertTriangle size={24} />
+              <p>No inventory alerts</p>
+            </div>
           </div>
         </div>
 
@@ -185,16 +199,27 @@ const Dashboard = () => {
                 <div className={styles.revenueStatValue}>£0.00</div>
               </div>
             </div>
-            <div className={styles.chartPlaceholder}>
-              {/* In a real app, this would be a chart component */}
-              <div className={styles.mockChart}>
-                <div className={styles.mockChartBar} style={{ height: '0%' }}></div>
-                <div className={styles.mockChartBar} style={{ height: '0%' }}></div>
-                <div className={styles.mockChartBar} style={{ height: '0%' }}></div>
-                <div className={styles.mockChartBar} style={{ height: '0%' }}></div>
-                <div className={styles.mockChartBar} style={{ height: '0%' }}></div>
-                <div className={styles.mockChartBar} style={{ height: '0%' }}></div>
-                <div className={styles.mockChartBar} style={{ height: '0%' }}></div>
+            <div className={styles.chartContainer}>
+              <div className={styles.chartPlaceholder}>
+                {/* In a real app, this would be a chart component */}
+                <div className={styles.mockChart}>
+                  <div className={styles.mockChartBar} style={{ height: '30%' }}></div>
+                  <div className={styles.mockChartBar} style={{ height: '50%' }}></div>
+                  <div className={styles.mockChartBar} style={{ height: '70%' }}></div>
+                  <div className={styles.mockChartBar} style={{ height: '40%' }}></div>
+                  <div className={styles.mockChartBar} style={{ height: '60%' }}></div>
+                  <div className={styles.mockChartBar} style={{ height: '80%' }}></div>
+                  <div className={styles.mockChartBar} style={{ height: '45%' }}></div>
+                </div>
+                <div className={styles.chartLabels}>
+                  <span>Mon</span>
+                  <span>Tue</span>
+                  <span>Wed</span>
+                  <span>Thu</span>
+                  <span>Fri</span>
+                  <span>Sat</span>
+                  <span>Sun</span>
+                </div>
               </div>
             </div>
           </div>

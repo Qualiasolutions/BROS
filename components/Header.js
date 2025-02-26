@@ -76,7 +76,7 @@ const Header = ({ toggleMobileMenu, mobileMenuOpen, activeTab, onTabChange }) =>
           </form>
         </div>
 
-        <nav className={styles.nav}>
+        <nav className={`${styles.nav} ${styles.desktopNav}`}>
           <div 
             className={`${styles.navItem} ${activeTab === 'dashboard' ? styles.navItemActive : ''}`} 
             onClick={() => onTabChange('dashboard')}
@@ -103,38 +103,9 @@ const Header = ({ toggleMobileMenu, mobileMenuOpen, activeTab, onTabChange }) =>
           </div>
         </nav>
 
-        {mobileMenuOpen && (
-          <nav className={styles.navMobile}>
-            <div 
-              className={`${styles.navItem} ${activeTab === 'dashboard' ? styles.navItemActive : ''}`} 
-              onClick={() => onTabChange('dashboard')}
-            >
-              Dashboard
-            </div>
-            <div 
-              className={`${styles.navItem} ${activeTab === 'reservations' ? styles.navItemActive : ''}`} 
-              onClick={() => onTabChange('reservations')}
-            >
-              Reservations
-            </div>
-            <div 
-              className={`${styles.navItem} ${activeTab === 'menu' ? styles.navItemActive : ''}`} 
-              onClick={() => onTabChange('menu')}
-            >
-              Menu
-            </div>
-            <div 
-              className={`${styles.navItem} ${activeTab === 'agent' ? styles.navItemActive : ''}`} 
-              onClick={() => onTabChange('agent')}
-            >
-              AI Assistant
-            </div>
-          </nav>
-        )}
-
         <div className={styles.headerActions}>
           <div className={styles.notificationContainer} ref={notificationRef}>
-            <button className={styles.iconButton} onClick={toggleNotifications}>
+            <button className={styles.iconButton} onClick={toggleNotifications} aria-label="Notifications">
               <Bell size={20} />
               {unreadCount > 0 && <span className={styles.notificationBadge}>{unreadCount}</span>}
             </button>
@@ -166,7 +137,7 @@ const Header = ({ toggleMobileMenu, mobileMenuOpen, activeTab, onTabChange }) =>
           </div>
 
           <div className={styles.userContainer} ref={userMenuRef}>
-            <button className={styles.iconButton} onClick={toggleUserMenu}>
+            <button className={styles.iconButton} onClick={toggleUserMenu} aria-label="User menu">
               <User size={20} />
             </button>
             
@@ -174,7 +145,7 @@ const Header = ({ toggleMobileMenu, mobileMenuOpen, activeTab, onTabChange }) =>
               <div className={styles.userDropdown}>
                 <div className={styles.userInfo}>
                   <div className={styles.userName}>Restaurant Manager</div>
-                  <div className={styles.userEmail}>manager@romain-tomas-fawzi.com</div>
+                  <div className={styles.userEmail}>manager@bros-mayfair.com</div>
                 </div>
                 <div className={styles.userMenuItems}>
                   <div className={styles.userMenuItem} onClick={() => onTabChange('settings')}>
@@ -188,11 +159,72 @@ const Header = ({ toggleMobileMenu, mobileMenuOpen, activeTab, onTabChange }) =>
             )}
           </div>
 
-          <button className={styles.mobileMenuButton} onClick={toggleMobileMenu}>
+          <button className={styles.mobileMenuButton} onClick={toggleMobileMenu} aria-label="Toggle mobile menu">
             {mobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
           </button>
         </div>
       </div>
+      
+      {mobileMenuOpen && (
+        <div className={styles.mobileNavContainer}>
+          <nav className={styles.navMobile}>
+            <div 
+              className={`${styles.navItem} ${activeTab === 'dashboard' ? styles.navItemActive : ''}`} 
+              onClick={() => onTabChange('dashboard')}
+            >
+              Dashboard
+            </div>
+            <div 
+              className={`${styles.navItem} ${activeTab === 'reservations' ? styles.navItemActive : ''}`} 
+              onClick={() => onTabChange('reservations')}
+            >
+              Reservations
+            </div>
+            <div 
+              className={`${styles.navItem} ${activeTab === 'menu' ? styles.navItemActive : ''}`} 
+              onClick={() => onTabChange('menu')}
+            >
+              Menu
+            </div>
+            <div 
+              className={`${styles.navItem} ${activeTab === 'staff' ? styles.navItemActive : ''}`} 
+              onClick={() => onTabChange('staff')}
+            >
+              Staff
+            </div>
+            <div 
+              className={`${styles.navItem} ${activeTab === 'inventory' ? styles.navItemActive : ''}`} 
+              onClick={() => onTabChange('inventory')}
+            >
+              Inventory
+            </div>
+            <div 
+              className={`${styles.navItem} ${activeTab === 'finances' ? styles.navItemActive : ''}`} 
+              onClick={() => onTabChange('finances')}
+            >
+              Finances
+            </div>
+            <div 
+              className={`${styles.navItem} ${activeTab === 'customers' ? styles.navItemActive : ''}`} 
+              onClick={() => onTabChange('customers')}
+            >
+              Customers
+            </div>
+            <div 
+              className={`${styles.navItem} ${activeTab === 'agent' ? styles.navItemActive : ''}`} 
+              onClick={() => onTabChange('agent')}
+            >
+              AI Assistant
+            </div>
+            <div 
+              className={`${styles.navItem} ${activeTab === 'settings' ? styles.navItemActive : ''}`} 
+              onClick={() => onTabChange('settings')}
+            >
+              Settings
+            </div>
+          </nav>
+        </div>
+      )}
     </header>
   );
 };

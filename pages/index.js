@@ -55,8 +55,8 @@ export default function Home() {
   return (
     <div className={styles.main}>
       <Head>
-        <title>ROMAIN, TOMAS & FAWZI | Restaurant Management</title>
-        <meta name="description" content="ROMAIN, TOMAS & FAWZI Restaurant Management System" />
+        <title>BROS Mayfair | Restaurant Management</title>
+        <meta name="description" content="BROS Mayfair Restaurant Management System" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
