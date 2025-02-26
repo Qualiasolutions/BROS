@@ -1,0 +1,77 @@
+{
+  "Φύλλο1": [
+    ["Column1", "Column2", "Column3", "Column4", "Column5", "Column6", "Column7"],
+    {
+      "Column1": "1",
+      "Column2": "Smithfield Meats",
+      "Column3": "orders@smithfieldmeats.co.uk",
+      "Column4": "+44 20 7123 4567",
+      "Column5": "London",
+      "Column6": "Premium Meats",
+      "Column7": "2023-01-10"
+    },
+    {
+      "Column1": "2",
+      "Column2": "Borough Market Produce",
+      "Column3": "sales@boroughproduce.co.uk",
+      "Column4": "+44 20 7234 5678",
+      "Column5": "London",
+      "Column6": "Organic Vegetables",
+      "Column7": "2023-02-15"
+    },
+    {
+      "Column1": "3",
+      "Column2": "Billingsgate Seafood",
+      "Column3": "orders@billingsgate.co.uk",
+      "Column4": "+44 20 7345 6789",
+      "Column5": "London",
+      "Column6": "Fresh Seafood",
+      "Column7": "2023-03-05"
+    },
+    {
+      "Column1": "4",
+      "Column2": "Neal's Yard Dairy",
+      "Column3": "wholesale@nealsyard.co.uk",
+      "Column4": "+44 20 7456 7890",
+      "Column5": "London",
+      "Column6": "Artisan Cheese",
+      "Column7": "2023-04-01"
+    },
+    {
+      "Column1": "5",
+      "Column2": "Covent Garden Spice Co.",
+      "Column3": "sales@cgspice.co.uk",
+      "Column4": "+44 20 7567 8901",
+      "Column5": "London",
+      "Column6": "Spices & Herbs",
+      "Column7": "2023-05-08"
+    },
+    {
+      "Column1": "6",
+      "Column2": "Mayfair Fine Wines",
+      "Column3": "orders@mayfairwines.co.uk",
+      "Column4": "+44 20 7678 9012",
+      "Column5": "London",
+      "Column6": "Premium Wines",
+      "Column7": "2023-06-12"
+    },
+    {
+      "Column1": "7",
+      "Column2": "Bermondsey Bakery",
+      "Column3": "wholesale@bermondseyb.co.uk",
+      "Column4": "+44 20 7789 0123",
+      "Column5": "London",
+      "Column6": "Artisan Bread",
+      "Column7": "2023-07-18"
+    },
+    {
+      "Column1": "8",
+      "Column2": "East London Microgreens",
+      "Column3": "sales@elmicrogreens.co.uk",
+      "Column4": "+44 20 7890 1234",
+      "Column5": "London",
+      "Column6": "Specialty Produce",
+      "Column7": "2023-08-22"
+    }
+  ]
+} 

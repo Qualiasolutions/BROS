@@ -1,0 +1,77 @@
+{
+  "Φύλλο1": [
+    ["Column1", "Column2", "Column3", "Column4", "Column5", "Column6", "Column7"],
+    {
+      "Column1": "1",
+      "Column2": "James Wilson",
+      "Column3": "james.wilson@example.co.uk",
+      "Column4": "+44 7700 900123",
+      "Column5": "London",
+      "Column6": "VIP",
+      "Column7": "2023-01-15"
+    },
+    {
+      "Column1": "2",
+      "Column2": "Olivia Thompson",
+      "Column3": "olivia.thompson@example.co.uk",
+      "Column4": "+44 7700 900234",
+      "Column5": "Chelsea",
+      "Column6": "Regular",
+      "Column7": "2023-02-20"
+    },
+    {
+      "Column1": "3",
+      "Column2": "William Parker",
+      "Column3": "william.parker@example.co.uk",
+      "Column4": "+44 7700 900345",
+      "Column5": "Kensington",
+      "Column6": "VIP",
+      "Column7": "2023-03-10"
+    },
+    {
+      "Column1": "4",
+      "Column2": "Sophia Mitchell",
+      "Column3": "sophia.mitchell@example.co.uk",
+      "Column4": "+44 7700 900456",
+      "Column5": "Mayfair",
+      "Column6": "Regular",
+      "Column7": "2023-04-05"
+    },
+    {
+      "Column1": "5",
+      "Column2": "Harry Johnson",
+      "Column3": "harry.johnson@example.co.uk",
+      "Column4": "+44 7700 900567",
+      "Column5": "Notting Hill",
+      "Column6": "VIP",
+      "Column7": "2023-05-12"
+    },
+    {
+      "Column1": "6",
+      "Column2": "Emily Davies",
+      "Column3": "emily.davies@example.co.uk",
+      "Column4": "+44 7700 900678",
+      "Column5": "Knightsbridge",
+      "Column6": "Regular",
+      "Column7": "2023-06-18"
+    },
+    {
+      "Column1": "7",
+      "Column2": "Alexander Bennett",
+      "Column3": "alexander.bennett@example.co.uk",
+      "Column4": "+44 7700 900789",
+      "Column5": "Belgravia",
+      "Column6": "VIP",
+      "Column7": "2023-07-22"
+    },
+    {
+      "Column1": "8",
+      "Column2": "Charlotte Reynolds",
+      "Column3": "charlotte.reynolds@example.co.uk",
+      "Column4": "+44 7700 900890",
+      "Column5": "Covent Garden",
+      "Column6": "Regular",
+      "Column7": "2023-08-30"
+    }
+  ]
+} 
